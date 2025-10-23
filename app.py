@@ -5,9 +5,9 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_google_genai import ChatGoogleGenerativeAI
 
-# ---------------------------
+
 # PAGE CONFIGURATION
-# ---------------------------
+
 st.set_page_config(
     page_title="Gmail AI Assistant",
     page_icon="📧",
@@ -15,9 +15,9 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ---------------------------
+
 # CUSTOM CSS
-# ---------------------------
+
 st.markdown("""
     <style>
     .main {
@@ -93,22 +93,22 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ---------------------------
+
 # LOAD ENVIRONMENT VARIABLES
-# ---------------------------
+
 load_dotenv()
 api_key = os.getenv("GOOGLE_API_KEY")
 
-# ---------------------------
+
 # CONFIGURATION
-# ---------------------------
+
 DB_PATH = "faiss_index"
 MODEL_NAME = "all-MiniLM-L6-v2"
 TOP_K = 10
 
-# ---------------------------
+
 # INITIALIZE SESSION STATE
-# ---------------------------
+
 if 'vectorstore' not in st.session_state:
     st.session_state.vectorstore = None
 if 'llm' not in st.session_state:
@@ -118,9 +118,9 @@ if 'chat_history' not in st.session_state:
 if 'total_emails' not in st.session_state:
     st.session_state.total_emails = 0
 
-# ---------------------------
+
 # LOAD MODELS
-# ---------------------------
+
 @st.cache_resource
 def load_vectorstore():
     """Load FAISS vector store"""
@@ -147,16 +147,16 @@ def load_llm():
         google_api_key=api_key
     )
 
-# ---------------------------
+
 # HEADER
-# ---------------------------
+
 st.title("📧 Gmail AI Assistant")
 st.markdown("### Your intelligent email companion powered by AI")
 st.markdown("---")
 
-# ---------------------------
+
 # SIDEBAR
-# ---------------------------
+
 with st.sidebar:
     st.image("https://img.icons8.com/fluency/96/gmail.png", width=80)
     st.title("⚙️ Settings")
@@ -212,9 +212,9 @@ with st.sidebar:
         st.session_state.chat_history = []
         st.rerun()
 
-# ---------------------------
+
 # MAIN CONTENT
-# ---------------------------
+
 
 # Check if system is ready
 if not os.path.exists(DB_PATH):

@@ -12,14 +12,11 @@ from langchain_core.documents import Document
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 
-# ---------------------------
-# LOAD ENVIRONMENT VARIABLES
-# ---------------------------
+
 load_dotenv()
 
-# ---------------------------
 # CONFIGURATION
-# ---------------------------
+
 CREDENTIALS_FILE = "credentials.json"
 TOKEN_FILE = "token.json"
 SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"]
@@ -27,9 +24,9 @@ MAX_EMAILS = 100
 DB_PATH = "faiss_index"
 MODEL_NAME = "all-MiniLM-L6-v2"
 
-# ---------------------------
+
 # HELPER FUNCTION TO CLEAN HTML
-# ---------------------------
+
 def clean_html(html_content):
     """Convert HTML to clean text"""
     try:
@@ -42,9 +39,9 @@ def clean_html(html_content):
     except Exception as e:
         return html_content
 
-# ---------------------------
+
 # HELPER FUNCTION TO EXTRACT EMAIL BODY
-# ---------------------------
+
 def get_email_body(payload):
     """Extract email body - handles ALL formats"""
     body_parts = []
@@ -93,9 +90,9 @@ def get_email_body(payload):
     full_body = "\n\n".join(body_parts)
     return full_body.strip()
 
-# ---------------------------
+
 # AUTHENTICATE GMAIL
-# ---------------------------
+
 def authenticate_gmail():
     """Authenticate and return Gmail service"""
     creds = None
@@ -113,9 +110,9 @@ def authenticate_gmail():
     
     return build("gmail", "v1", credentials=creds)
 
-# ---------------------------
+
 # FETCH AND PROCESS EMAILS
-# ---------------------------
+
 def fetch_and_process_emails(max_emails=MAX_EMAILS):
     """Fetch emails and return documents"""
     print(f"{'='*100}")
@@ -187,9 +184,9 @@ def fetch_and_process_emails(max_emails=MAX_EMAILS):
     
     return documents
 
-# ---------------------------
+
 # CREATE VECTOR STORE
-# ---------------------------
+
 def create_vector_store(documents, db_path=DB_PATH):
     """Create and save FAISS vector store"""
     print("🧠 Creating embeddings...")
@@ -207,9 +204,9 @@ def create_vector_store(documents, db_path=DB_PATH):
     
     return vectorstore
 
-# ---------------------------
+
 # MAIN EXECUTION
-# ---------------------------
+
 def main():
     print(f"\n{'='*100}")
     print("📧 GMAIL DATA PREPROCESSING & EMBEDDING CREATION")
